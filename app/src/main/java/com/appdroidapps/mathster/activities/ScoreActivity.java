@@ -92,6 +92,7 @@ public class ScoreActivity extends BaseGameActivity {
                         RootActivity.cleverTapAPI.profile.push(personalInfo);
                     }
 
+
                     RootActivity.setLeaderBoardSynced(System.currentTimeMillis());
 
                     r.run();
