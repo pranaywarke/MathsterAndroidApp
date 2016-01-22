@@ -1,0 +1,2 @@
+1. Fix Font sizes for devices.
+2. Placement of banner ad.

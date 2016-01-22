@@ -1,0 +1,253 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/highscore"
+            android:layout_gravity="center_horizontal"
+            android:textSize="18sp"
+            android:padding="5dp"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:ellipsize="middle" />
+
+        <FrameLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_question_box"
+            android:layout_margin="5dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextSwitcher
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:id="@+id/textSwitcher"
+                            android:padding="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="New Text"
+                            android:id="@+id/question"
+                            android:textSize="40dp"
+                            style="@style/TextStyleShadow"
+                            android:textColor="#000000"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_gravity="center" />
+                    </LinearLayout>
+
+                    <TextSwitcher
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/bonustextSwitcher"
+                        android:layout_gravity="center"
+                        android:padding="10dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/progressBar"
+                android:progressDrawable="@drawable/progressbar_bg"
+                android:layout_margin="5dp" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="bottom">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 XP"
+                        android:textColor="#ffffff"
+                        android:textSize="12sp"
+                        android:padding="5dp"
+                        android:layout_gravity="center_horizontal"
+                        style="@style/TextStyleShadow" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#28b4d8" />
+                </LinearLayout>
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="10dp"
+                    android:background="#28b4d8"
+                    android:layout_gravity="bottom" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="bottom"> <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2 XP"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp"
+                    android:padding="5dp"
+                    android:layout_gravity="center_horizontal"
+                    style="@style/TextStyleShadow" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#28b4d8" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="10dp"
+                    android:background="#28b4d8"
+                    android:layout_gravity="bottom" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="bottom"> <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3 XP"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp"
+                    android:padding="5dp"
+                    android:layout_gravity="center_horizontal"
+                    style="@style/TextStyleShadow" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#28b4d8" /></LinearLayout>
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="New Button"
+                android:id="@+id/option1"
+                android:layout_weight="1"
+                android:textSize="30sp"
+                android:padding="10dp"
+                android:textAllCaps="false"
+                android:background="@drawable/button_bg"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:textAlignment="center" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="New Button"
+                android:id="@+id/option2"
+                android:layout_weight="1"
+                android:textSize="30sp"
+                android:padding="10dp"
+                android:textAllCaps="false"
+                android:background="@drawable/button_bg"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="New Button"
+                android:id="@+id/option3"
+                android:layout_weight="1"
+                android:textSize="30sp"
+                android:padding="10dp"
+                android:textAllCaps="false"
+                android:background="@drawable/button_bg"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:textAlignment="center" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="New Button"
+                android:id="@+id/option4"
+                android:layout_weight="1"
+                android:textSize="30sp"
+                android:padding="10dp"
+                android:textAllCaps="false"
+                android:background="@drawable/button_bg"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:textAlignment="center" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

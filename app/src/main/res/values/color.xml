@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- color int as #AARRGGBB (alpha, red, green, blue) -->
+    <color name="mathster_color">#00feae</color>
+    <color name="my_awesome_red">#f37338</color>
+    <color name="my_awesome_darker_red">#000000</color>
+
+
+    <color name="mathster1">#801638</color>
+    <color name="mathster2">#c22326</color>
+    <color name="mathster3">#f37338</color>
+    <color name="mathster4">#027878</color>
+</resources>
