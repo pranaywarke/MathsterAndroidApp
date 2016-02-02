@@ -23,11 +23,11 @@ public class SplashActivity extends RootActivity {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(750);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Intent i = new Intent(that, MainActivity.class);
+                Intent i = new Intent(that, LandingActivity.class);
                 startActivity(i);
                 finish();
 

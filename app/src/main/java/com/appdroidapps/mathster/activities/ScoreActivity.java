@@ -1,7 +1,6 @@
 package com.appdroidapps.mathster.activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
@@ -14,10 +13,8 @@ import com.google.android.gms.games.Player;
 import com.google.android.gms.games.leaderboard.LeaderboardVariant;
 import com.google.android.gms.games.leaderboard.Leaderboards;
 
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import static android.widget.Toast.makeText;
 import static com.google.android.gms.games.Games.Leaderboards;
@@ -43,30 +40,49 @@ public class ScoreActivity extends BaseGameActivity {
 
     @Override
     public void onSignInFailed() {
-        RootActivity.cleverTapAPI.event.push("SignIn Failed");
+        Map<String, Object> map = new HashMap<>();
+        map.put("Challenge", RootActivity.context.displayText);
+        RootActivity.cleverTapAPI.event.push("SignIn Failed", map);
         makeText(ScoreActivity.this, "Unable to access leaderboard, please try again later.", Toast.LENGTH_SHORT).show();
         finish();
     }
 
     @Override
     public void onSignInSucceeded() {
-        RootActivity.cleverTapAPI.event.push("SignIn Succeeded");
+        Map<String, Object> map = new HashMap<>();
+        map.put("Challenge", RootActivity.context.displayText);
+        RootActivity.cleverTapAPI.event.push("SignIn Succeeded", map);
         showView();
+    }
+
+    private String getLeaderBoardString() {
+        String leaderBoard = null;
+        switch (RootActivity.context) {
+            case CHALLENGE_DOS:
+                leaderBoard = getString(R.string.leaderboard_mode1);
+                break;
+            case CHALLENGE_TRES:
+                leaderBoard = getString(R.string.leaderboard_mode2);
+                break;
+        }
+        return leaderBoard;
     }
 
     private void loadScoreOfLeaderBoard(final Runnable r) {
 
 
-        Leaderboards.loadCurrentPlayerLeaderboardScore(getApiClient(), getString(R.string.leaderboard), LeaderboardVariant.TIME_SPAN_ALL_TIME, LeaderboardVariant.COLLECTION_PUBLIC).setResultCallback(new ResultCallback<Leaderboards.LoadPlayerScoreResult>() {
+        Leaderboards.loadCurrentPlayerLeaderboardScore(getApiClient(), getLeaderBoardString(), LeaderboardVariant.TIME_SPAN_ALL_TIME, LeaderboardVariant.COLLECTION_PUBLIC).setResultCallback(new ResultCallback<Leaderboards.LoadPlayerScoreResult>() {
             public void onResult(final Leaderboards.LoadPlayerScoreResult scoreResult) {
                 if (isScoreResultValid(scoreResult)) {
 
                     final long rank = scoreResult.getScore().getRank();
                     long mPoints = scoreResult.getScore().getRawScore();
-                    long topScore = RootActivity.getMnMTopScore();
+                    long topScore = RootActivity.getTopScore();
                     if (mPoints > topScore) {
-                        RootActivity.cleverTapAPI.event.push("LeaderBoard Synced");
-                        RootActivity.setMnMTopScore(mPoints);
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("Challenge", RootActivity.context.displayText);
+                        RootActivity.cleverTapAPI.event.push("LeaderBoard Synced", map);
+                        RootActivity.setTopScore(mPoints);
                         RootActivity.setHistogramValues(mPoints);
                         RootActivity.setLeaderBoardLastUpdatedTopScore(mPoints);
                     }
@@ -80,7 +96,7 @@ public class ScoreActivity extends BaseGameActivity {
                         String uri = holder.getIconImageUrl();
                         if (name != null && name.length() > 1) {
                             personalInfo.put("Name", Character.toUpperCase(name.charAt(0)) + name.substring(1));
-                        }else if (displayName != null && displayName.length() > 0) {
+                        } else if (displayName != null && displayName.length() > 0) {
                             personalInfo.put("Name", displayName);
                         }
                         if (playerId != null) {
@@ -124,18 +140,17 @@ public class ScoreActivity extends BaseGameActivity {
     private Runnable run = new Runnable() {
         public void run() {
 
-            long score = RootActivity.getMnMTopScore();
+            long score = RootActivity.getTopScore();
             long l_updated_score = RootActivity.getLeaderBoardLastUpdatedTopScore();
             if (l_updated_score < score && score > 0) {
 
-                Leaderboards.submitScoreImmediate(getApiClient(),
-                        getString(R.string.leaderboard),
+                Leaderboards.submitScoreImmediate(getApiClient(), getLeaderBoardString(),
                         score);
                 RootActivity.setLeaderBoardLastUpdatedTopScore(score);
             }
             final int BOARD_REQUEST_CODE = 1;
             startActivityForResult(Leaderboards.getLeaderboardIntent(
-                    getApiClient(), getString(R.string.leaderboard)), BOARD_REQUEST_CODE);
+                    getApiClient(), getLeaderBoardString()), BOARD_REQUEST_CODE);
             finish();
         }
     };

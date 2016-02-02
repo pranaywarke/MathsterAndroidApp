@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 public class BarChart extends MultitouchView {
     private final Context context;
-    private int[] colors = new int[]{
+    public static final int[] colors = new int[]{
             Color.parseColor("#794044"),
             Color.parseColor("#114355"),
             Color.parseColor("#009f6a"),

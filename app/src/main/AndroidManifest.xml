@@ -1,12 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.appdroidapps.mathster">
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+
+    <uses-permission
+        android:name="android.permission.GET_ACCOUNTS"
+        tools:node="remove" />
+
+    <uses-permission
+        android:name="android.permission.ACCESS_COARSE_LOCATION"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.READ_PHONE_STATE"
+        tools:node="remove" />
+
+    <uses-permission
+        android:name="android.permission.WAKE_LOCK"
+        tools:node="remove" />
+
+    <!--  <uses-permission android:name="android.permission.GET_ACCOUNTS" />-->
+    <!--    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+        <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
     <!-- GCM Permissions -->
     <!--  <uses-permission android:name="android.permission.WAKE_LOCK" />
   -->
@@ -54,6 +75,15 @@
             android:name=".activities.MnMActivity"
             android:label="Main" />
         <activity
+            android:name=".activities.MinuteActivity"
+            android:label="MinuteActivity" />
+        <activity
+            android:name=".activities.LandingActivity"
+            android:label="MinuteActivity" />
+        <activity
+            android:name=".activities.MemoryActivity"
+            android:label="MinuteActivity" />
+        <activity
             android:name="com.clevertap.android.sdk.InAppNotificationActivity"
             android:configChanges="orientation|keyboardHidden"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
@@ -76,6 +106,7 @@
             </intent-filter>
         </receiver>
 
+        <!--Main Account crendentils TODO change-->
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
             android:value="867-4WK-844Z" />
@@ -83,6 +114,18 @@
         <meta-data
             android:name="CLEVERTAP_TOKEN"
             android:value="304-a6b" />
+
+
+        <!--Test Account crendentils-->
+        <!--<meta-data-->
+            <!--android:name="CLEVERTAP_ACCOUNT_ID"-->
+            <!--android:value="TEST-967-4WK-844Z" />-->
+
+        <!--<meta-data-->
+            <!--android:name="CLEVERTAP_TOKEN"-->
+            <!--android:value="TEST-304-a6c" />-->
+
+
         <meta-data
             android:name="com.google.android.gms.games.APP_ID"
             android:value="@string/google_app_id" />
@@ -96,7 +139,7 @@
         <activity android:name=".activities.ScoreActivity" />
         <meta-data
             android:name="CLEVERTAP_INAPP_EXCLUDE"
-            android:value="ScoreActivity,MnMActivity,PlayFieldActivity"/>
+            android:value="SplashAcivity,ScoreActivity,MnMActivity,PlayFieldActivity,MinuteActivity" />
 
 
     </application>

@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape  xmlns:android="http://schemas.android.com/apk/res/android"
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <corners android:radius="10dp"/>
-    <solid
+    <corners android:radius="30dp" />
+    <solid android:color="@color/mathster2" />
+    <stroke
+        android:width="1dp"
         android:color="@color/mathster2" />
-    <stroke android:width="1dp"
-        android:color="#000000"/>
+    <gradient
+        android:angle="0"
+        android:endColor="@color/mathster2"
+        android:startColor="@color/mathster2_light" />
 </shape>

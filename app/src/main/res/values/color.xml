@@ -7,8 +7,49 @@
     <color name="my_awesome_darker_red">#000000</color>
 
 
+    <color name="mathster_go_buttons">#ff33b5e5</color>
+
+    <!--
+
+        <color name="mathster1">#90b623</color>
+        <color name="mathster2">#E0D500</color>
+        <color name="mathster3">#f37338</color>
+        <color name="mathster4">#9CE6FC</color>
+
+        <color name="mathster1_light">#90b623</color>
+        <color name="mathster2_light">#E0D500</color>
+        <color name="mathster3_light">#F69365</color>
+        <color name="mathster4_light">#9CE6FC</color>
+
+
+    -->
+
+    <!--
+
+        Color.parseColor("#801638"),
+        Color.parseColor("#c22326"),
+        Color.parseColor("#f37338"),
+        Color.parseColor("#027878")};-->
+
     <color name="mathster1">#801638</color>
     <color name="mathster2">#c22326</color>
     <color name="mathster3">#f37338</color>
     <color name="mathster4">#027878</color>
+
+    <color name="mathster1_light">#D1235B</color>
+    <color name="mathster2_light">#DC4144</color>
+    <color name="mathster3_light">#F69365</color>
+    <color name="mathster4_light">#027878</color>
+
+
+    <!--
+        <color name="mathster1">#545E75</color>
+        <color name="mathster2">#A7CCED</color>
+        <color name="mathster3">#304D6D</color>
+        <color name="mathster4">#82A0BC</color>
+
+        <color name="mathster1_light">#545E75</color>
+        <color name="mathster2_light">#A7CCED</color>
+        <color name="mathster3_light">#304D6D</color>
+        <color name="mathster4_light">#82A0BC</color>-->
 </resources>

@@ -6,10 +6,10 @@ android {
 
     defaultConfig {
         applicationId "com.appdroidapps.mathster"
-        minSdkVersion 11
+        minSdkVersion 9
         targetSdkVersion 23
-        versionCode 8
-        versionName "1.9"
+        versionCode 13
+        versionName "2.4"
     }
     buildTypes {
         release {

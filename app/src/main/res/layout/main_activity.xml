@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainActivityParentView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical"
+    android:weightSum="11">
+
+    <FrameLayout
+        android:id="@+id/frame1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <com.appdroidapps.mathster.utils.DynamicTextView
+            android:id="@+id/topScore"
+            style="@style/TextStyleShadow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="22"
+            android:textColor="@color/mathster3"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frame2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.appdroidapps.mathster.utils.DynamicTextView
+            android:id="@+id/highScoreLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="High score"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:textColor="@color/mathster3" />
+
+
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:orientation="horizontal">
+
+        <com.appdroidapps.mathster.utils.DynamicButton
+            android:id="@+id/go_button"
+            style="@style/TextStyleShadow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/red_button_bg"
+            android:padding="10dp"
+            android:text="GO"
+            android:textAllCaps="false"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
+            android:textColor="#ffffff"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+
+        <com.appdroidapps.mathster.utils.DynamicTextView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/backLink"
+            android:layout_gravity="left|center_vertical"
+            android:background="@drawable/back" />
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_weight="2">
+
+        <com.appdroidapps.mathster.utils.DynamicTextView
+            android:id="@+id/contextText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+
+
+            android:text="MODE 1"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/mathster3"
+
+
+            android:textStyle="normal|bold" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:weightSum="4"
+        android:layout_marginBottom="10dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <com.appdroidapps.mathster.utils.DynamicButton
+                android:id="@+id/frequencyChart"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/landing_page_button"
+                android:text="Top 5 Scores"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/mathster3"
+                android:textStyle="bold" />
+
+            <com.appdroidapps.mathster.utils.DynamicButton
+                android:id="@+id/dailyChart"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/landing_page_button"
+                android:text="Daily Trend"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/mathster3"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <com.appdroidapps.mathster.utils.DynamicButton
+                android:id="@+id/showLeaderBoard"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:background="@drawable/landing_page_button"
+                android:text="Leaderboard"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/mathster3"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <com.appdroidapps.mathster.utils.DynamicTextView
+                android:id="@+id/share"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Share"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+            <com.appdroidapps.mathster.utils.DynamicTextView
+                android:id="@+id/rateMathster"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Rate"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColorLink="#ffffff" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

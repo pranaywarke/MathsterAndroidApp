@@ -26,15 +26,14 @@ public class MnMActivity extends PlayFieldActivity {
 
     private static final String images_folder_name = "shared_images";
     private static final String image_name = "image.png";
-    private static Runnable r = null;
+    protected static Runnable r = null;
 
-    private int progress;
+    protected int progress;
     private AlertDialog builder;
-    private boolean stop = false;
+    protected boolean stop = false;
     private MnMActivity that = this;
 
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         stop = false;
     }
@@ -83,9 +82,9 @@ public class MnMActivity extends PlayFieldActivity {
     }
 
 
-    private void next() {
+    protected void next() {
         currentScore.setText("" + rightAnswerCount);
-        showQuestion(QueryInterface.getQuestion(QueryInterface.MODES.MAKE_NO_MISTAKE, this));
+        showQuestion(QueryInterface.getQuestion());
 
         final long startTime = System.currentTimeMillis();
 
@@ -136,7 +135,7 @@ public class MnMActivity extends PlayFieldActivity {
 
         int rightAnswer = _q.getOptions()[_q.getIdx()];
         loadBanner();
-        int topScore = getMnMTopScore();
+        int topScore = getTopScore();
 
         boolean isHighScore = rightAnswerCount > topScore;
         String title = MessagingUtils.getDialogueTitle(reason, isHighScore, rightAnswerCount);
@@ -148,7 +147,7 @@ public class MnMActivity extends PlayFieldActivity {
 
         HashMap<String, Object> profileProps = new HashMap<String, Object>();
         if (isHighScore) {
-            setMnMTopScore(rightAnswerCount);
+            setTopScore(rightAnswerCount);
             profileProps.put("High Score", rightAnswerCount);
         }
         setHistogramValues(rightAnswerCount);
@@ -157,6 +156,7 @@ public class MnMActivity extends PlayFieldActivity {
 
         HashMap<String, Object> gameEndedProperties = new HashMap<String, Object>();
         gameEndedProperties.put("Score", rightAnswerCount);
+        gameEndedProperties.put("Challenge", RootActivity.context.displayText);
         cleverTapAPI.event.push("Game Ended", gameEndedProperties);
         LayoutInflater inflater = getLayoutInflater();
         View dialoglayout = inflater.inflate(R.layout.dialog_layout, null);
@@ -174,13 +174,13 @@ public class MnMActivity extends PlayFieldActivity {
         TextView share = (TextView) dialoglayout.findViewById(R.id.shareMyScore);
         if (isHighScore) {
             share.setVisibility(View.VISIBLE);
-            share.setTextColor(mathster_orange);
             share.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Map<String, Object> map = new HashMap<>();
-                    map.put("Screen","Play");
-                    cleverTapAPI.event.push("Share Clicked",map);
+                    map.put("Screen", "Play");
+                    map.put("Challenge", RootActivity.context.displayText);
+                    cleverTapAPI.event.push("Share Clicked", map);
                     btnShareOnClick();
                 }
             });
@@ -207,7 +207,6 @@ public class MnMActivity extends PlayFieldActivity {
         AlertDialog.Builder bd = new AlertDialog.Builder(this)
                 .setView(dialoglayout);
         builder = bd.create();
-        //   builder.getWindow().setLayout(1000, 1000);
         builder.setCanceledOnTouchOutside(false);
         builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
             public void onCancel(DialogInterface dialog) {
@@ -220,7 +219,9 @@ public class MnMActivity extends PlayFieldActivity {
                 if (builder != null) {
                     builder.dismiss();
                 }
-                cleverTapAPI.event.push("Back Pressed");
+                Map<String, Object> map = new HashMap<>();
+                map.put("Challenge", RootActivity.context.displayText);
+                cleverTapAPI.event.push("Back Pressed", map);
                 onBackPressed();
             }
         });
@@ -228,7 +229,9 @@ public class MnMActivity extends PlayFieldActivity {
             @Override
             public void onClick(View v) {
 
-                cleverTapAPI.event.push("RePlayed");
+                Map<String, Object> map = new HashMap<>();
+                map.put("Challenge", RootActivity.context.displayText);
+                cleverTapAPI.event.push("RePlayed", map);
                 HashMap<String, Object> profileProps = new HashMap<String, Object>();
                 profileProps.put("Replayed", "true");
                 cleverTapAPI.profile.push(profileProps);

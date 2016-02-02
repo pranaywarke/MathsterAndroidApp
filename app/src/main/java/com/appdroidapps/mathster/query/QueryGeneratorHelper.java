@@ -19,7 +19,9 @@ public class QueryGeneratorHelper {
         three(30, 50),
         four(50, 100),
         five(100, 199),
-        six(199, 499);
+        six(199, 499),
+        seven(199, 1000);
+
         int max, min;
 
         private Difficulty(int min, int max) {
@@ -52,7 +54,8 @@ public class QueryGeneratorHelper {
         add8(Difficulty.four, Difficulty.five),
         add9(Difficulty.five, Difficulty.five),
         add10(Difficulty.six, Difficulty.five),
-        add11(Difficulty.six, Difficulty.six);
+        add11(Difficulty.six, Difficulty.six),
+        add12(Difficulty.seven, Difficulty.seven);
 
 
         Difficulty first = null;
@@ -86,7 +89,8 @@ public class QueryGeneratorHelper {
         sub8(Difficulty.four, Difficulty.five),
         sub9(Difficulty.five, Difficulty.five),
         sub10(Difficulty.six, Difficulty.five),
-        sub11(Difficulty.six, Difficulty.six);
+        sub11(Difficulty.six, Difficulty.six),
+        sub12(Difficulty.seven, Difficulty.seven);
 
         Difficulty first = null;
         Difficulty second = null;
@@ -132,13 +136,11 @@ public class QueryGeneratorHelper {
 
         @Override
         public Difficulty getFirst() {
-            // TODO Auto-generated method stub
             return first;
         }
 
         @Override
         public Difficulty getSecond() {
-            // TODO Auto-generated method stub
             return second;
         }
     }
@@ -181,7 +183,8 @@ public class QueryGeneratorHelper {
         Level5(AddLevel.add8, 1, SubLevel.sub8, 1, MulLevel.mul6, 1, DivLevel.div6, 1),
         Level6(AddLevel.add9, 1, SubLevel.sub9, 1, MulLevel.mul9, 1, DivLevel.div11, 1),
         Level7(AddLevel.add10, 1, SubLevel.sub10, 1, MulLevel.mul10, 1, DivLevel.div11, 1),
-        Shakuntala(AddLevel.add11, 1, SubLevel.sub11, 1, MulLevel.mul11, 1, DivLevel.div11, 1);
+        Shakuntala(AddLevel.add11, 1, SubLevel.sub11, 1, MulLevel.mul11, 1, DivLevel.div11, 1),
+        Shakuntala2(AddLevel.add12, 1, SubLevel.sub12, 1, MulLevel.mul11, 1, DivLevel.div11, 1);
 
         AddLevel add;
         SubLevel sub;
@@ -227,7 +230,7 @@ public class QueryGeneratorHelper {
 
     public static void main(String[] args) throws InterruptedException {
         for (UserLevel l : UserLevel.values()) {
-            Query query = new Query(l);
+            QuestionsGroup query = new QuestionsGroup(l);
             System.out.println("UserLevel " + l);
             for (int i = 0; i < 20; i++) {
 

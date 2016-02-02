@@ -90,14 +90,15 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <Button
+            <com.appdroidapps.mathster.utils.DynamicTextView
                 android:id="@+id/shareMyScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:background="@drawable/alert_button_bg"
-                android:text="Share" />
+                android:background="@drawable/share_white"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp" />
         </LinearLayout>
 
         <LinearLayout

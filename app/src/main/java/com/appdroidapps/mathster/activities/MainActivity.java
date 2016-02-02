@@ -1,7 +1,6 @@
 package com.appdroidapps.mathster.activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
@@ -12,14 +11,12 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.appdroidapps.mathster.BarChart;
 import com.appdroidapps.mathster.BarData;
 import com.appdroidapps.mathster.R;
 import com.appdroidapps.mathster.utils.DynamicButton;
 import com.appdroidapps.mathster.utils.DynamicTextView;
-import com.appdroidapps.mathster.utils.MessagingUtils;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -36,65 +33,84 @@ import java.util.Map;
  */
 public class MainActivity extends RootActivity {
 
+    private int adCounter = 0;
+
+
     private FrameLayout frame1, frame2;
     private AlertDialog builder;
-    private DynamicTextView highScore, highScoreLabel;
-    private DynamicButton go_button;
+    private DynamicTextView highScore, highScoreLabel, contextText, backLink;
+    private DynamicButton go_button, go_button1;
     protected InterstitialAd mInterstitialAd;
     protected View buttonsGroup;
     //  private BarChart histogram;
+
 
     private DynamicButton topFive, showDailyChart, showLeaderBoardButton;
     private DynamicTextView rate, share;
 
     protected void requestNewInterstitial() {
-        if (mInterstitialAd != null) {
+        int playedCount = cleverTapAPI.event.getCount("App Launched");
+        boolean show = playedCount > 5 && (playedCount + adCounter) % 2 == 0;
+        if (mInterstitialAd != null && show) {
             AdRequest adRequest = new AdRequest.Builder()
                     .addTestDevice("3BF3563231EC0E15536D1F94441DBD55")
                     .build();
 
             mInterstitialAd.loadAd(adRequest);
         }
+        adCounter++;
+
     }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity_old);
+        setContentView(R.layout.main_activity);
         buttonsGroup = (View) findViewById(R.id.buttonGroup);
         //mnm = (TextView) findViewById(R.id.mnm);
         frame1 = (FrameLayout) findViewById(R.id.frame1);
         frame2 = (FrameLayout) findViewById(R.id.frame2);
-        String welcomeMessage = MessagingUtils.getWelcomeMessage();
-        if (welcomeMessage != null) {
-            showToast(welcomeMessage);
-        }
+
+        contextText = (DynamicTextView) findViewById(R.id.contextText);
+        contextText.setText(RootActivity.context.displayText);
         highScore = (DynamicTextView) findViewById(R.id.topScore);
-        highScore.setTextColor(mathster_orange);
+
+        //    highScore.setTextColor(mathster_orange);
         highScoreLabel = (DynamicTextView) findViewById(R.id.highScoreLabel);
-        highScoreLabel.setTextColor((mathster_orange));
+        glow(new DynamicTextView[]{highScore, highScoreLabel});
+        //    highScoreLabel.setTextColor((mathster_orange));
         go_button = (DynamicButton) findViewById(R.id.go_button);
+      /*  go_button1 = (DynamicButton)findViewById(R.id.go_button1);
+      */
         showLeaderBoardButton = (DynamicButton) findViewById(R.id.showLeaderBoard);
         topFive = (DynamicButton) findViewById(R.id.frequencyChart);
         showDailyChart = (DynamicButton) findViewById(R.id.dailyChart);
-        rate = (DynamicTextView) findViewById(R.id.rateMathster);
-        rate.setTextColor(mathster_orange);
         share = (DynamicTextView) findViewById(R.id.share);
-        share.setTextColor(mathster_orange);
+        final Map<String, Object> clProps = new HashMap<>();
+        clProps.put("Challenge", RootActivity.context.displayText);
         showDailyChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleverTapAPI.event.push("Daily HighScore Clicked");
+                cleverTapAPI.event.push("Daily HighScore Clicked", clProps);
                 showHistoGram(HistoGramType.DailyTopScore);
             }
         });
         topFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleverTapAPI.event.push("Top5 Table Clicked");
+                cleverTapAPI.event.push("Top5 Table Clicked", clProps);
                 showHistoGram(HistoGramType.TopFiveScores);
 
             }
         });
+
+        backLink = (DynamicTextView) findViewById(R.id.backLink);
+        backLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         if (SHOW_ADS) {
             mInterstitialAd = new InterstitialAd(this);
             mInterstitialAd.setAdUnitId("ca-app-pub-2882064284132215/5034737489");
@@ -112,7 +128,10 @@ public class MainActivity extends RootActivity {
             @Override
             public void onClick(View v) {
 
-                cleverTapAPI.event.push("LeaderBoard Clicked");
+                Map<String, Object> map = new HashMap<>();
+                map.put("Challenge", RootActivity.context.displayText);
+                cleverTapAPI.event.push("LeaderBoard Clicked", map);
+
                 Intent in = new Intent(MainActivity.this, ScoreActivity.class);
                 in.setAction(ScoreActivity.ACTION_VIEW_LEADERBOARD);
                 startActivity(in);
@@ -120,21 +139,7 @@ public class MainActivity extends RootActivity {
             }
         });
 
-        rate.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) {
-                btnRateAppOnClick();
-            }
-        });
-        share.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                Map<String, Object> map = new HashMap<>();
-                map.put("Screen", "main");
-                cleverTapAPI.event.push("Share Clicked", map);
-                btnShareOnClick();
-            }
-        });
         go_button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -142,8 +147,20 @@ public class MainActivity extends RootActivity {
                 if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
                     mInterstitialAd.show();
                 }
-                cleverTapAPI.event.push("Go Started");
-                Intent intent = new Intent(MainActivity.this, MnMActivity.class);
+                Map<String, Object> map = new HashMap<>();
+                map.put("Challenge", RootActivity.context.displayText);
+                cleverTapAPI.event.push("Go Started", map);
+                Intent intent = null;
+              /*  switch (RootActivity.context) {
+                    case CHALLENGE_TRES:
+                        intent = new Intent(MainActivity.this, MinuteActivity.class);
+                        break;
+                    case CHALLENGE_DOS:
+                        intent = new Intent(MainActivity.this, MnMActivity.class);
+                        break;
+                }*/
+                intent = new Intent(MainActivity.this, MnMActivity.class);
+
                 startActivity(intent);
             }
         });
@@ -217,24 +234,9 @@ public class MainActivity extends RootActivity {
     }
 
 
-    //On click event for rate this app button
-    public void btnRateAppOnClick() {
-
-        cleverTapAPI.event.push("Rate Clicked");
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-
-        try {
-            intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.appdroidapps.mathster"));
-            startActivity(intent);
-        } catch (Exception e) {
-            Toast.makeText(this, "Could not open Android market, please install the market app.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
     protected void onResume() {
         super.onResume();
-        int ts = RootActivity.getMnMTopScore();
+        int ts = RootActivity.getTopScore();
         //  histogram.setVisibility(View.GONE);
 
         if (ts != -1) {
@@ -265,6 +267,7 @@ public class MainActivity extends RootActivity {
         dialoglayout.setLayoutParams(layoutParams);
 
         TextView titletextView = (TextView) dialoglayout.findViewById(R.id.titleChart);
+        TextView dialogContext = (TextView) dialoglayout.findViewById(R.id.dialogContext);
         BarChart barChart = (BarChart) dialoglayout.findViewById(R.id.contentChart);
         TextView helpText = (TextView) dialoglayout.findViewById(R.id.helpText);
         Button close = (Button) dialoglayout.findViewById(R.id.close);
@@ -276,6 +279,7 @@ public class MainActivity extends RootActivity {
                 }
             }
         });
+        dialogContext.setText(context.displayText);
         switch (type) {
             case TopFiveScores:
                 titletextView.setText("Top 5 Scores");
@@ -300,5 +304,35 @@ public class MainActivity extends RootActivity {
 
         showBar(barChart, type);
 
+    }
+
+
+    public void glow(final DynamicTextView... view) {
+
+        if (view != null) {
+            View v = view[0];
+            try {
+                v.postDelayed(new Runnable() {
+                    public void run() {
+                        try {
+
+                            for (final DynamicTextView _v : view) {
+                                if (_v.getVisibility() == View.VISIBLE) {
+                                    _v.setVisibility(View.INVISIBLE);
+                                } else {
+                                    _v.setVisibility(View.VISIBLE);
+                                }
+                            }
+                            glow(view);
+                        } catch (Throwable t) {
+
+                        }
+                    }
+                }, 500);
+            } catch (Throwable e) {
+
+            }
+
+        }
     }
 }

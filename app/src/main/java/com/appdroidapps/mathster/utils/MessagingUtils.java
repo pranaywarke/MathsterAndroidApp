@@ -18,7 +18,7 @@ public class MessagingUtils {
         String name = RootActivity.cleverTapAPI.profile.getProperty("Name");
         String _ts = RootActivity.getFromSharedPrefrences(WELCOME_MS_KEY);
         int diffInHours = -1;
-        long highScore = RootActivity.getMnMTopScore();
+        long highScore = RootActivity.getTopScore();
         if (_ts != null) {
             diffInHours = (int) ((System.currentTimeMillis() - Long.parseLong(_ts)) / 3600000);
         }
@@ -41,7 +41,7 @@ public class MessagingUtils {
         }
         String beatMessage = "";
         if (highScore > 0) {
-            beatMessage = ", Let's try to beat " + highScore + " this time";
+            //        beatMessage = ", Let's try to beat " + highScore + " this time";
         }
         String finalMessage = greeting + name + beatMessage;
         RootActivity.setToSharedPreferences(WELCOME_MS_KEY, String.valueOf(System.currentTimeMillis()));
@@ -52,7 +52,7 @@ public class MessagingUtils {
         String text = "Mathster";
         String _ts = RootActivity.getFromSharedPrefrences(HIGH_SCORE_KEY);
         int diffInHours = -1;
-        long highScore = RootActivity.getMnMTopScore();
+        long highScore = RootActivity.getTopScore();
         if (_ts != null) {
             diffInHours = (int) ((System.currentTimeMillis() - Long.parseLong(_ts)) / 3600000);
         }
@@ -94,7 +94,7 @@ public class MessagingUtils {
             text = "Way to go " + name + "! You should let your friends know";
             return text;
         }
-        int topScore = RootActivity.getMnMTopScore();
+        int topScore = RootActivity.getTopScore();
         if (rightAnswerCount > 100 && rightAnswerCount > 0.75 * topScore) {
             return "That was pretty close to your top score " + name + "! You should try again";
         }
@@ -104,7 +104,7 @@ public class MessagingUtils {
                 break;
             case WRONG_ANSWER:
                 if (rightAnswerCount < 50) {
-                    text = "Concentrate " + name + " concentrate!";
+                    //   text = "Concentrate " + name + " concentrate!";
                 } else {
                     //     if (System.currentTimeMillis() % 2 == 0)
                     //         text = "Was it the bonus points you were going for";

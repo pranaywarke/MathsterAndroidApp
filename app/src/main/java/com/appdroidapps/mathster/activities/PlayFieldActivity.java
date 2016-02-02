@@ -34,7 +34,7 @@ public abstract class PlayFieldActivity extends RootActivity {
 
     private TextView question;
     protected View parent_parent;
-    private Button option1, option2, option3, option4;
+    protected Button option1, option2, option3, option4;
 
     protected int rightAnswerCount = 0, wrongAnswerCount = 0;
 
@@ -46,12 +46,16 @@ public abstract class PlayFieldActivity extends RootActivity {
     AdView mAdView;
 
     public void loadBanner() {
-        if (mAdView != null && SHOW_ADS) {
+        int playedCount = cleverTapAPI.event.getCount("App Launched");
+        if (mAdView != null && SHOW_ADS && playedCount > 3) {
+            mAdView.setVisibility(View.VISIBLE);
             AdRequest adRequest = new AdRequest.Builder()
                     .addTestDevice("3BF3563231EC0E15536D1F94441DBD55")
                     .build();
 
             mAdView.loadAd(adRequest);
+        } else {
+            mAdView.setVisibility(View.GONE);
         }
     }
 
@@ -62,7 +66,6 @@ public abstract class PlayFieldActivity extends RootActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.play_field);
         parent_parent = findViewById(R.id.parent_parent);
-        //    getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mAdView = (AdView) findViewById(R.id.adView);
         if (SHOW_ADS) {
 
@@ -102,6 +105,7 @@ public abstract class PlayFieldActivity extends RootActivity {
     }
 
     int noOfrightAnswer = 0;
+
     View.OnClickListener onclick = new View.OnClickListener() {
         public void onClick(View v) {
             int clikedAnswer = Integer.parseInt(((TextView) v).getText() + "");
@@ -116,11 +120,13 @@ public abstract class PlayFieldActivity extends RootActivity {
                 onRightAnswer(clikedAnswer);
 
             } else {
+                _q.setAnswered(false);
                 wrongAnswerCount = wrongAnswerCount - 10;
                 onWrongAnswer(clikedAnswer);
             }
         }
     };
+
 
     public abstract void onRightAnswer(int answer);
 
@@ -199,7 +205,7 @@ public abstract class PlayFieldActivity extends RootActivity {
         // set the animation type of currentScore
         currentScore.setInAnimation(in);
         highScore = (TextView) findViewById(R.id.highscore);
-        currentHighScore = getMnMTopScore();
+        currentHighScore = getTopScore();
         if (currentHighScore > 0) {
             highScore.setText(currentHighScore + " more to go");
         } else {
@@ -211,6 +217,12 @@ public abstract class PlayFieldActivity extends RootActivity {
 
         option3.setOnClickListener(onclick);
         option4.setOnClickListener(onclick);
+
+      /*  option1.setOnTouchListener(onTouch);
+        option2.setOnTouchListener(onTouch);
+        option3.setOnTouchListener(onTouch);
+        option4.setOnTouchListener(onTouch);*/
+
         vibrator = (Vibrator) this.getSystemService(Service.VIBRATOR_SERVICE);
         rightAnswerCount = 0;
         wrongAnswerCount = 0;
