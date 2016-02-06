@@ -809,8 +809,7 @@ public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
         int cancellations = getSignInCancellations();
         boolean shouldResolve = false;
 
-        if (mUserInitiatedSignIn) {
-            debugLog("onConnectionFailed: WILL resolve because user initiated sign-in.");
+        if (result.getErrorCode() == ConnectionResult.SIGN_IN_REQUIRED) {
             shouldResolve = true;
         } else if (mSignInCancelled) {
             debugLog("onConnectionFailed WILL NOT resolve (user already cancelled once).");

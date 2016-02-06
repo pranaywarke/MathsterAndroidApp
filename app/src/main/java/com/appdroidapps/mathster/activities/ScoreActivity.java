@@ -2,7 +2,7 @@ package com.appdroidapps.mathster.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.appdroidapps.mathster.R;
@@ -26,6 +26,12 @@ public class ScoreActivity extends BaseGameActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         onNewIntent(getIntent());
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     @Override
@@ -33,10 +39,6 @@ public class ScoreActivity extends BaseGameActivity {
         super.onNewIntent(intent);
     }
 
-
-    protected void beginUserInitiatedSignIn() {
-        super.beginUserInitiatedSignIn();
-    }
 
     @Override
     public void onSignInFailed() {
@@ -55,6 +57,7 @@ public class ScoreActivity extends BaseGameActivity {
         showView();
     }
 
+
     private String getLeaderBoardString() {
         String leaderBoard = null;
         switch (RootActivity.context) {
@@ -72,7 +75,7 @@ public class ScoreActivity extends BaseGameActivity {
 
 
         Leaderboards.loadCurrentPlayerLeaderboardScore(getApiClient(), getLeaderBoardString(), LeaderboardVariant.TIME_SPAN_ALL_TIME, LeaderboardVariant.COLLECTION_PUBLIC).setResultCallback(new ResultCallback<Leaderboards.LoadPlayerScoreResult>() {
-            public void onResult(final Leaderboards.LoadPlayerScoreResult scoreResult) {
+            public void onResult(@NonNull final Leaderboards.LoadPlayerScoreResult scoreResult) {
                 if (isScoreResultValid(scoreResult)) {
 
                     final long rank = scoreResult.getScore().getRank();
@@ -89,7 +92,7 @@ public class ScoreActivity extends BaseGameActivity {
 
                     Player holder = scoreResult.getScore().getScoreHolder();
                     if (holder != null) {
-                        Map<String, Object> personalInfo = new HashMap<String, Object>();
+                        Map<String, Object> personalInfo = new HashMap<>();
                         String name = holder.getName();
                         String displayName = holder.getDisplayName();
                         String playerId = holder.getPlayerId();
