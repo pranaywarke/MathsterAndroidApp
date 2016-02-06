@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
+import com.appdroidapps.mathster.activities.RootActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -41,6 +42,8 @@ import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.Plus.PlusOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
@@ -800,15 +803,20 @@ public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
 
         mConnectionResult = result;
         debugLog("Connection failure:");
+        String errorCode = GameHelperUtils.errorCodeToString(mConnectionResult
+                .getErrorCode());
         debugLog("   - code: "
-                + GameHelperUtils.errorCodeToString(mConnectionResult
-                .getErrorCode()));
+                + errorCode);
         debugLog("   - resolvable: " + mConnectionResult.hasResolution());
         debugLog("   - details: " + mConnectionResult.toString());
 
         int cancellations = getSignInCancellations();
         boolean shouldResolve = false;
 
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("Reason", errorCode);
+        RootActivity.cleverTapAPI.event.push("Failed SignInReason", map);
         if (result.getErrorCode() == ConnectionResult.SIGN_IN_REQUIRED) {
             shouldResolve = true;
         } else if (mSignInCancelled) {
@@ -917,8 +925,12 @@ public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
             GameHelperUtils.printMisconfiguredDebugInfo(mAppContext);
         }
 
+        Map<String, Object> map = new HashMap<>();
+        map.put("Reason", reason.getServiceErrorCode() + "_" + reason.toString());
+        RootActivity.cleverTapAPI.event.push("Failed SignInReason", map);
         showFailureDialog();
         mConnecting = false;
+
         notifyListener(false);
     }
 
