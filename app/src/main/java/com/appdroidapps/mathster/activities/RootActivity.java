@@ -32,7 +32,7 @@ import java.util.List;
 public class RootActivity extends AppCompatActivity {
 
 
-    protected static final boolean SHOW_ADS = true;
+    protected static final boolean SHOW_ADS = false;
     private static final String SUFFIX = "7"; // this key is live in prod don't mess with it.
     //private static final String SUFFIX = "1001";
     private static final String MNM_KEY = "score" + SUFFIX;
@@ -76,6 +76,16 @@ public class RootActivity extends AppCompatActivity {
             return GameContext.CHALLENGE_DOS;
         }
         return context;
+    }
+
+    public static boolean isAchievementInSync(String idx) {
+
+        return sharedPreferencesN.getBoolean(idx, false);
+    }
+
+    public static void setAchievementInSync(String idx) {
+        editorN.putBoolean(idx, true);
+        editorN.commit();
     }
 
     public static String getFromSharedPrefrences(String key) {
@@ -468,10 +478,9 @@ public class RootActivity extends AppCompatActivity {
 
     public boolean onTouchEvent(MotionEvent event) {
 
-        if(event.getPointerCount() > 1) {
+        if (event.getPointerCount() > 1) {
             return false;
-        }
-        else
+        } else
             return super.onTouchEvent(event);
     }
 

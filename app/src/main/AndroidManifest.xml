@@ -82,7 +82,10 @@
             android:label="MinuteActivity" />
         <activity
             android:name=".activities.MemoryActivity"
-            android:label="MinuteActivity" />
+            android:label="MemoryActivity" />
+        <activity
+            android:name=".activities.AchievementsActivity"
+            android:label="AchievementsActivity" />
         <activity
             android:name="com.clevertap.android.sdk.InAppNotificationActivity"
             android:configChanges="orientation|keyboardHidden"

@@ -90,7 +90,7 @@ public abstract class BaseGameActivity extends FragmentActivity implements
     public GameHelper getGameHelper() {
         if (mHelper == null) {
             mHelper = new GameHelper(this, mRequestedClients);
-            mHelper.enableDebugLog(mDebugLog);
+            mHelper.enableDebugLog(true);
         }
         return mHelper;
     }

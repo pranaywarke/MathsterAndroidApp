@@ -133,7 +133,6 @@ public class MainActivity extends RootActivity {
                 cleverTapAPI.event.push("LeaderBoard Clicked", map);
 
                 Intent in = new Intent(MainActivity.this, ScoreActivity.class);
-                in.setAction(ScoreActivity.ACTION_VIEW_LEADERBOARD);
                 startActivity(in);
 
             }

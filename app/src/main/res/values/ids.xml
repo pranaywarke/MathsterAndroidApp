@@ -3,8 +3,15 @@
     <string name="clever_tap_sender_id">id:511094442344</string>
     <string name="google_app_id">511094442344</string>
     <!-- <string name="google_app_id_old">920593584037</string>-->
-    <string name="leaderboard_mode1">CgkI6JLp_O8OEAIQAA</string>
-
-    <string name="leaderboard_mode2">CgkI6JLp_O8OEAIQCg</string>
     <string name="gcm_api_key">AIzaSyDKfRo9iPOTMQC06lIUGxaBxrnUxJfKcNg</string>
+
+
+    <string name="leaderboard_mode_duo">CgkI6JLp_O8OEAIQAA</string>
+
+    <string name="leaderboard_mode_trio">CgkI6JLp_O8OEAIQCg</string>
+    <string name="achievement_challenge_duo_200_crossed">CgkI6JLp_O8OEAIQAg</string>
+    <string name="achievement_challenge_duo_set_high_score_twice_in_a_day">CgkI6JLp_O8OEAIQAw</string>
+    <string name="achievement_challenge_duo_score_400">CgkI6JLp_O8OEAIQBA</string>
+    <string name="achievement_challenge_duo_600_crossed">CgkI6JLp_O8OEAIQBQ</string>
+    <string name="achievement_challenge_duo_800_crossed">CgkI6JLp_O8OEAIQBg</string>
 </resources>

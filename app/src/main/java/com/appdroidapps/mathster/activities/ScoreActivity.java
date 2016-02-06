@@ -22,10 +22,6 @@ import static com.google.android.gms.games.Games.Leaderboards;
 // ScoreActity is used BaseGameActivity for Google Api Client Utilites
 public class ScoreActivity extends BaseGameActivity {
 
-    public static final String ACTION_VIEW_LEADERBOARD = "view_leaderboard";
-    private Handler handler = new Handler();
-    private Intent intent;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +30,12 @@ public class ScoreActivity extends BaseGameActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
-        this.intent = intent;
         super.onNewIntent(intent);
+    }
+
+
+    protected void beginUserInitiatedSignIn() {
+        super.beginUserInitiatedSignIn();
     }
 
     @Override
@@ -59,10 +59,10 @@ public class ScoreActivity extends BaseGameActivity {
         String leaderBoard = null;
         switch (RootActivity.context) {
             case CHALLENGE_DOS:
-                leaderBoard = getString(R.string.leaderboard_mode1);
+                leaderBoard = getString(R.string.leaderboard_mode_duo);
                 break;
             case CHALLENGE_TRES:
-                leaderBoard = getString(R.string.leaderboard_mode2);
+                leaderBoard = getString(R.string.leaderboard_mode_trio);
                 break;
         }
         return leaderBoard;
@@ -112,17 +112,6 @@ public class ScoreActivity extends BaseGameActivity {
                     RootActivity.setLeaderBoardSynced(System.currentTimeMillis());
 
                     r.run();
-                    // get Total number of players here to calculate percentiles
-
-                 /*   Leaderboards.loadLeaderboardMetadata(getApiClient(),getString(R.string.leaderboard),true).setResultCallback(new ResultCallback<com.google.android.gms.games.leaderboard.Leaderboards.LeaderboardMetadataResult>() {
-                        public void onResult(Leaderboards.LeaderboardMetadataResult leaderboardMetadataResult) {
-                            int total = leaderboardMetadataResult.getLeaderboards().getCount();
-                            int percentile = (int) (((total - rank) / total) * 100);
-                            Toast.makeText(ScoreActivity.this, "Pecentile "+percentile, Toast.LENGTH_LONG).show();
-                            r.run();
-                        }
-                    });*/
-
 
                 } else {
                     r.run();
@@ -149,8 +138,7 @@ public class ScoreActivity extends BaseGameActivity {
                 RootActivity.setLeaderBoardLastUpdatedTopScore(score);
             }
             final int BOARD_REQUEST_CODE = 1;
-            startActivityForResult(Leaderboards.getLeaderboardIntent(
-                    getApiClient(), getLeaderBoardString()), BOARD_REQUEST_CODE);
+            startActivityForResult(Leaderboards.getLeaderboardIntent(getApiClient(), getLeaderBoardString()), BOARD_REQUEST_CODE);
             finish();
         }
     };
