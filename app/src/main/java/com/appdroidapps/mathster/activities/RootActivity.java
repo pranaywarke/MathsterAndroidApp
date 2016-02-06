@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -20,6 +22,8 @@ import com.clevertap.android.sdk.exceptions.CleverTapPermissionsNotSatisfied;
 
 import org.json.JSONArray;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -482,6 +486,30 @@ public class RootActivity extends AppCompatActivity {
             return false;
         } else
             return super.onTouchEvent(event);
+    }
+
+
+    public static File takeScreenshot(View v1) {
+        try {
+            // image naming and path  to include sd card  appending name you choose for file
+             v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/mathster_" + System.currentTimeMillis() + ".jpg";
+
+
+            File imageFile = new File(mPath);
+
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+            return imageFile;
+        } catch (Throwable e) {
+            // Several error may come out with file handling or OOM
+        }
+        return null;
     }
 
 }

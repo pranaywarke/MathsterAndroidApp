@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <uses-permission
         android:name="android.permission.GET_ACCOUNTS"
@@ -110,23 +112,23 @@
         </receiver>
 
         <!--Main Account crendentils TODO change-->
-        <meta-data
-            android:name="CLEVERTAP_ACCOUNT_ID"
-            android:value="867-4WK-844Z" />
-
-        <meta-data
-            android:name="CLEVERTAP_TOKEN"
-            android:value="304-a6b" />
-
-
-        <!--Test Account crendentils-->
         <!--<meta-data-->
             <!--android:name="CLEVERTAP_ACCOUNT_ID"-->
-            <!--android:value="TEST-967-4WK-844Z" />-->
+            <!--android:value="867-4WK-844Z" />-->
 
         <!--<meta-data-->
             <!--android:name="CLEVERTAP_TOKEN"-->
-            <!--android:value="TEST-304-a6c" />-->
+            <!--android:value="304-a6b" />-->
+
+
+        Test Account crendentils
+        <meta-data
+        android:name="CLEVERTAP_ACCOUNT_ID"
+        android:value="TEST-967-4WK-844Z" />
+
+        <meta-data
+        android:name="CLEVERTAP_TOKEN"
+        android:value="TEST-304-a6c" />
 
 
         <meta-data

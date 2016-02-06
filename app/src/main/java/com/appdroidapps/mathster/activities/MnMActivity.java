@@ -3,19 +3,26 @@ package com.appdroidapps.mathster.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.appdroidapps.mathster.R;
 import com.appdroidapps.mathster.query.QueryInterface;
+import com.appdroidapps.mathster.utils.Falcon;
 import com.appdroidapps.mathster.utils.MessagingUtils;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.widget.Toast.makeText;
 
 /**
  * Created by pranay on 14/11/15.
@@ -177,11 +184,22 @@ public class MnMActivity extends PlayFieldActivity {
             share.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("Screen", "Play");
-                    map.put("Challenge", RootActivity.context.displayText);
-                    cleverTapAPI.event.push("Share Clicked", map);
-                    btnShareOnClick();
+                    try {
+                        String mPath = Environment.getExternalStorageDirectory().toString() + "/mathster_highscore.jpg";
+                        File imageFile = new File(mPath);
+                        Falcon.takeScreenshot(MnMActivity.this, imageFile);
+                        Intent share = new Intent(Intent.ACTION_SEND);
+                        share.setType("image/jpeg");
+                        share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(imageFile));
+                        startActivity(Intent.createChooser(share, "Share Screenshot"));
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("Screen", "Play");
+                        map.put("Challenge", RootActivity.context.displayText);
+                        cleverTapAPI.event.push("Image Shared", map);
+                    } catch (Exception e) {
+                        makeText(MnMActivity.this, "Unable to share screenshot.", Toast.LENGTH_SHORT).show();
+
+                    }
                 }
             });
         } else {
