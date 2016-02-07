@@ -121,7 +121,7 @@
             <!--android:value="304-a6b" />-->
 
 
-        Test Account crendentils
+        <!--Test Account crendentils-->
         <meta-data
         android:name="CLEVERTAP_ACCOUNT_ID"
         android:value="TEST-967-4WK-844Z" />
@@ -144,7 +144,7 @@
         <activity android:name=".activities.ScoreActivity" />
         <meta-data
             android:name="CLEVERTAP_INAPP_EXCLUDE"
-            android:value="SplashAcivity,ScoreActivity,MnMActivity,PlayFieldActivity,MinuteActivity" />
+            android:value="ScoreActivity,AchievementsActivity,MemoryActivity,SplashAcivity,ScoreActivity,MnMActivity,PlayFieldActivity,MinuteActivity" />
 
 
     </application>

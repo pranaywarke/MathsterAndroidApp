@@ -8,8 +8,8 @@ android {
         applicationId "com.appdroidapps.mathster"
         minSdkVersion 11
         targetSdkVersion 23
-        versionCode 13
-        versionName "2.4"
+        versionCode 14
+        versionName "2.5"
     }
     buildTypes {
         release {
