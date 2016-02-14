@@ -55,7 +55,7 @@ public class RootActivity extends AppCompatActivity {
     public static CleverTapAPI cleverTapAPI;
     protected static SharedPreferences sharedPreferencesN;
     protected static SharedPreferences.Editor editorN;
-    protected static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+    public static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
     protected static int[] mm = new int[]{
             31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
     };
@@ -111,13 +111,13 @@ public class RootActivity extends AppCompatActivity {
         return sharedPreferencesN.getString(key, def);
     }
 
-    private static void setIntSP(String key, Integer val) {
+    public static void setIntSP(String key, Integer val) {
         key = (getContext().key + key).trim();
         editorN.putInt(key, val);
         editorN.commit();
     }
 
-    private static Integer getIntSP(String key, Integer def) {
+    public static Integer getIntSP(String key, Integer def) {
         key = (getContext().key + key).trim();
         return sharedPreferencesN.getInt(key, def);
     }
@@ -492,7 +492,7 @@ public class RootActivity extends AppCompatActivity {
     public static File takeScreenshot(View v1) {
         try {
             // image naming and path  to include sd card  appending name you choose for file
-             v1.setDrawingCacheEnabled(true);
+            v1.setDrawingCacheEnabled(true);
             Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
             v1.setDrawingCacheEnabled(false);
             String mPath = Environment.getExternalStorageDirectory().toString() + "/mathster_" + System.currentTimeMillis() + ".jpg";

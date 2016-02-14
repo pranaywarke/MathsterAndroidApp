@@ -3,8 +3,14 @@ package com.appdroidapps.mathster.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.appdroidapps.mathster.R;
+
+import org.json.JSONObject;
+
+import io.branch.referral.Branch;
+import io.branch.referral.BranchError;
 
 
 /**
@@ -36,4 +42,27 @@ public class SplashActivity extends RootActivity {
         t.start();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        try {
+            Branch branch = Branch.getInstance();
+            branch.initSession(new Branch.BranchReferralInitListener() {
+                @Override
+                public void onInitFinished(JSONObject referringParams, BranchError error) {
+                    if (error == null) {
+                        // params are the deep linked params associated with the link that the user clicked before showing up
+                        Log.i("BranchConfigTest", "deep link data: " + referringParams.toString());
+                    }
+                }
+            }, this.getIntent().getData(), this);
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        this.setIntent(intent);
+    }
 }

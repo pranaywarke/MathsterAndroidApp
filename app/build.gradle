@@ -8,8 +8,8 @@ android {
         applicationId "com.appdroidapps.mathster"
         minSdkVersion 11
         targetSdkVersion 23
-        versionCode 14
-        versionName "2.5"
+        versionCode 16
+        versionName "2.5.2"
     }
     buildTypes {
         release {
@@ -17,15 +17,34 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+}
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 dependencies {
 
     compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'io.branch.sdk.android:library:1.+'
+
+
     compile 'com.google.android.gms:play-services:8.4.0'
     compile 'com.google.android.gms:play-services-games:8.4.0'
     compile 'com.google.android.gms:play-services-auth:8.4.0'
     compile 'com.google.android.gms:play-services-plus:8.4.0'
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
-    compile 'com.clevertap.android:clevertap-android-sdk:2.0.4'
+
+//    compile 'com.google.android.gms:play-services:3.2.65'
+//    compile 'com.google.android.gms:play-services-games:3.2.65'
+//    compile 'com.google.android.gms:play-services-auth:3.2.65'
+//    compile 'com.google.android.gms:play-services-plus:3.2.65'
+//    compile 'com.google.android.gms:play-services-gcm:3.2.65'
+//
+
+
+
+    compile name:'CleverTapAndroidSDK-v2.0.5-20160109'
 }

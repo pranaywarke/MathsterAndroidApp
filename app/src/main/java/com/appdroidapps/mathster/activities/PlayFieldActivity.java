@@ -36,12 +36,12 @@ public abstract class PlayFieldActivity extends RootActivity {
     protected View parent_parent;
     protected Button option1, option2, option3, option4;
 
-    protected int rightAnswerCount = 0, wrongAnswerCount = 0;
+    protected int currentScore = 0, wrongAnswerCount = 0;
 
     protected TextView highScore;
 
     public ProgressBar progressBar;
-    public TextSwitcher currentScore;
+    public TextSwitcher currentScoreTextView;
     public TextSwitcher bonusScore;
     AdView mAdView;
 
@@ -113,7 +113,7 @@ public abstract class PlayFieldActivity extends RootActivity {
                 if (noOfrightAnswer++ % 5 == 0) {
                     loadBanner();
                 }
-                rightAnswerCount = rightAnswerCount + 10;
+                currentScore = currentScore + 10;
                 _q.setAnswered(true);
 
 
@@ -159,7 +159,7 @@ public abstract class PlayFieldActivity extends RootActivity {
         option3 = (Button) findViewById(R.id.option3);
         option4 = (Button) findViewById(R.id.option4);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        currentScore = (TextSwitcher) findViewById(R.id.textSwitcher);
+        currentScoreTextView = (TextSwitcher) findViewById(R.id.textSwitcher);
         bonusScore = (TextSwitcher) findViewById(R.id.bonustextSwitcher);
         bonusScore.removeAllViews();
         bonusScore.setFactory(new ViewSwitcher.ViewFactory() {
@@ -177,8 +177,8 @@ public abstract class PlayFieldActivity extends RootActivity {
             }
         });
 
-        currentScore.removeAllViews();
-        currentScore.setFactory(new ViewSwitcher.ViewFactory() {
+        currentScoreTextView.removeAllViews();
+        currentScoreTextView.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView() {
                 // create new textView and set the properties like clolr, size etc
@@ -202,8 +202,8 @@ public abstract class PlayFieldActivity extends RootActivity {
         Animation in = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
         Animation out = AnimationUtils.loadAnimation(this, android.R.anim.fade_out);
 
-        // set the animation type of currentScore
-        currentScore.setInAnimation(in);
+        // set the animation type of currentScoreTextView
+        currentScoreTextView.setInAnimation(in);
         highScore = (TextView) findViewById(R.id.highscore);
         currentHighScore = getTopScore();
         if (currentHighScore > 0) {
@@ -224,7 +224,7 @@ public abstract class PlayFieldActivity extends RootActivity {
         option4.setOnTouchListener(onTouch);*/
 
         vibrator = (Vibrator) this.getSystemService(Service.VIBRATOR_SERVICE);
-        rightAnswerCount = 0;
+        currentScore = 0;
         wrongAnswerCount = 0;
 
     }

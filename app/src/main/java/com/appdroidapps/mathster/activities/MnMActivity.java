@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.appdroidapps.mathster.R;
 import com.appdroidapps.mathster.query.QueryInterface;
+import com.appdroidapps.mathster.utils.AchievementsUtil;
 import com.appdroidapps.mathster.utils.Falcon;
 import com.appdroidapps.mathster.utils.MessagingUtils;
 
@@ -51,16 +53,16 @@ public class MnMActivity extends PlayFieldActivity {
         }
         if (progress > 66) {
             bonusScore.setText("+3 XP");
-            rightAnswerCount = rightAnswerCount + 3;
+            currentScore = currentScore + 3;
         } else if (progress > 33) {
             bonusScore.setText("+2 XP");
-            rightAnswerCount = rightAnswerCount + 2;
+            currentScore = currentScore + 2;
         } else {
             bonusScore.setText("");
         }
         vibrator.vibrate(25);
         if (currentHighScore > 0) {
-            int left = currentHighScore - rightAnswerCount;
+            int left = currentHighScore - currentScore;
             if (left >= 0) {
                 highScore.setText(left + " more to go");
             } else {
@@ -90,7 +92,7 @@ public class MnMActivity extends PlayFieldActivity {
 
 
     protected void next() {
-        currentScore.setText("" + rightAnswerCount);
+        currentScoreTextView.setText("" + currentScore);
         showQuestion(QueryInterface.getQuestion());
 
         final long startTime = System.currentTimeMillis();
@@ -111,9 +113,6 @@ public class MnMActivity extends PlayFieldActivity {
                             modulo = 5;
                         } else if (timeElapsed > 2000) {
                             modulo = 8;
-                        }
-                        if (counter % modulo == 0) {
-                            //             mediaPlayer.start();
                         }
                         int timeInSecs = (int) (5000 - timeElapsed);
                         progress = 100 * timeInSecs / 5000;
@@ -144,25 +143,25 @@ public class MnMActivity extends PlayFieldActivity {
         loadBanner();
         int topScore = getTopScore();
 
-        boolean isHighScore = rightAnswerCount > topScore;
-        String title = MessagingUtils.getDialogueTitle(reason, isHighScore, rightAnswerCount);
-        String rightAnswerText = MessagingUtils.getRightAnswerText(reason, isHighScore, rightAnswerCount, rightAnswer);
+        boolean isHighScore = currentScore > topScore;
+        String title = MessagingUtils.getDialogueTitle(reason, isHighScore, currentScore);
+        String rightAnswerText = MessagingUtils.getRightAnswerText(reason, isHighScore, currentScore, rightAnswer);
 
-        String scoreText = MessagingUtils.getScoreText(rightAnswer, isHighScore, rightAnswerCount);
+        String scoreText = MessagingUtils.getScoreText(rightAnswer, isHighScore, currentScore);
 
-        String message = MessagingUtils.getFunnyMessage(reason, isHighScore, rightAnswerCount, rightAnswer);
+        String message = MessagingUtils.getFunnyMessage(reason, isHighScore, currentScore, rightAnswer);
 
-        HashMap<String, Object> profileProps = new HashMap<String, Object>();
+        HashMap<String, Object> profileProps = new HashMap<>();
         if (isHighScore) {
-            setTopScore(rightAnswerCount);
-            profileProps.put("High Score", rightAnswerCount);
+            setTopScore(currentScore);
+            profileProps.put("High Score", currentScore);
         }
-        setHistogramValues(rightAnswerCount);
+        setHistogramValues(currentScore);
         profileProps.put("Last Score", topScore);
         cleverTapAPI.profile.push(profileProps);
 
-        HashMap<String, Object> gameEndedProperties = new HashMap<String, Object>();
-        gameEndedProperties.put("Score", rightAnswerCount);
+        HashMap<String, Object> gameEndedProperties = new HashMap<>();
+        gameEndedProperties.put("Score", currentScore);
         gameEndedProperties.put("Challenge", RootActivity.context.displayText);
         cleverTapAPI.event.push("Game Ended", gameEndedProperties);
         LayoutInflater inflater = getLayoutInflater();
@@ -172,14 +171,14 @@ public class MnMActivity extends PlayFieldActivity {
         TextView scoreTextView = (TextView) dialoglayout.findViewById(R.id.scoreTextView);
         TextView messageTextView = (TextView) dialoglayout.findViewById(R.id.messageTextView);
         Button back_button = (Button) dialoglayout.findViewById(R.id.back_button);
-        back_button.setTextColor(mathster_green);
+        back_button.setTextColor(ContextCompat.getColor(this, R.color.mathster3));
         Button try_button = (Button) dialoglayout.findViewById(R.id.try_button);
-        try_button.setTextColor(mathster_green);
+        try_button.setTextColor(ContextCompat.getColor(this, R.color.mathster3));
         titletextView.setText(title);
 
 
         TextView share = (TextView) dialoglayout.findViewById(R.id.shareMyScore);
-        if (isHighScore) {
+        if (currentScore > 0) {
             share.setVisibility(View.VISIBLE);
             share.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -265,7 +264,7 @@ public class MnMActivity extends PlayFieldActivity {
         refresh();
         builder.show();
         stop = true;
-
+        AchievementsUtil.updateAchievements(currentScore);
     }
 
     @Override
