@@ -30,7 +30,6 @@ import com.appdroidapps.mathster.activities.RootActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.drive.Drive;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.Games.GamesOptions;
 import com.google.android.gms.games.GamesActivityResultCodes;
@@ -38,8 +37,6 @@ import com.google.android.gms.games.multiplayer.Invitation;
 import com.google.android.gms.games.multiplayer.Multiplayer;
 import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatch;
 import com.google.android.gms.games.request.GameRequest;
-import com.google.android.gms.plus.Plus;
-import com.google.android.gms.plus.Plus.PlusOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -117,7 +114,6 @@ public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
 
     // Api options to use when adding each API, null for none
     GamesOptions mGamesApiOptions = GamesOptions.builder().build();
-    PlusOptions mPlusApiOptions = null;
 
     // Google API client object we manage.
     GoogleApiClient mGoogleApiClient = null;
@@ -249,10 +245,10 @@ public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
      * Sets the options to pass when setting up the Plus API. Call before
      * setup().
      */
-    public void setPlusApiOptions(PlusOptions options) {
-        doApiOptionsPreCheck();
-        mPlusApiOptions = options;
-    }
+//    public void setPlusApiOptions(PlusOptions options) {
+//        doApiOptionsPreCheck();
+//        mPlusApiOptions = options;
+//    }
 
     /**
      * Creates a GoogleApiClient.Builder for use with @link{#setup}. Normally,
@@ -277,13 +273,13 @@ public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
         }
 
         if (0 != (mRequestedClients & CLIENT_PLUS)) {
-            builder.addApi(Plus.API);
-            builder.addScope(Plus.SCOPE_PLUS_LOGIN);
+           // builder.addApi(Plus.API);
+          //  builder.addScope(Plus.SCOPE_PLUS_LOGIN);
         }
 
         if (0 != (mRequestedClients & CLIENT_SNAPSHOT)) {
-            builder.addScope(Drive.SCOPE_APPFOLDER);
-            builder.addApi(Drive.API);
+           // builder.addScope(Drive.SCOPE_APPFOLDER);
+          //  builder.addApi(Drive.API);
         }
 
         mGoogleApiClientBuilder = builder;
@@ -540,7 +536,7 @@ public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
         // then disconnecting
         if (0 != (mRequestedClients & CLIENT_PLUS)) {
             debugLog("Clearing default account on PlusClient.");
-            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+         //   Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
         }
 
         // For the games client, signing out means calling signOut and

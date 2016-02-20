@@ -1,0 +1,30 @@
+
+
+
+Multiplication tables.
+ 2- 30 till 30
+
+Squares and Cubes and
+squares till 30.
+cubes till 30.
+powers of two.
+
+Algebraic formulas
+1. (a + b)2 = a2 + 2ab + b2; a2 + b2 = (a + b)2 − 2ab
+2. (a − b)2 = a2 − 2ab + b2; a2 + b2 = (a − b)2 + 2ab
+3. (a + b + c)2 = a2 + b2 + c2 + 2(ab + bc + ca)
+4. (a + b)3 = a3 + b3 + 3ab(a + b); a3 + b3 = (a + b)3 − 3ab(a + b)
+5. (a − b)3 = a3 − b3 − 3ab(a − b); a3 − b3 = (a − b)3 + 3ab(a − b)
+6. a2 − b2 = (a + b)(a − b)
+7. a3 − b3 = (a − b)(a2 + ab + b2)
+8. a3 + b3 = (a + b)(a2 − ab + b2)
+9. an − bn = (a − b)(an−1 + an−2b + an−3b2 + ··· + bn−1)
+
+Area / Volumes / surface areas.
+
+
+
+
+Trignometric formulas.
+http://www.sosmath.com/trig/Trig5/trig5/trig5.html
+

@@ -93,7 +93,7 @@ public class ScoreActivity extends BaseGameActivity {
                     Player holder = scoreResult.getScore().getScoreHolder();
                     if (holder != null) {
                         Map<String, Object> personalInfo = new HashMap<>();
-                        String name = holder.getName();
+                        String name = null;
                         String displayName = holder.getDisplayName();
                         String playerId = holder.getPlayerId();
                         String uri = holder.getIconImageUrl();

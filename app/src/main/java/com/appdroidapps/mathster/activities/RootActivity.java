@@ -9,10 +9,22 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appdroidapps.mathster.R;
@@ -56,6 +68,8 @@ public class RootActivity extends AppCompatActivity {
     protected static SharedPreferences sharedPreferencesN;
     protected static SharedPreferences.Editor editorN;
     public static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+
+    LayoutInflater inflater;
     protected static int[] mm = new int[]{
             31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
     };
@@ -119,6 +133,16 @@ public class RootActivity extends AppCompatActivity {
 
     public static Integer getIntSP(String key, Integer def) {
         key = (getContext().key + key).trim();
+        return sharedPreferencesN.getInt(key, def);
+    }
+
+
+    public static void setSP(String key, Integer val) {
+        editorN.putInt(key, val);
+        editorN.commit();
+    }
+
+    public static Integer getSP(String key, Integer def) {
         return sharedPreferencesN.getInt(key, def);
     }
 
@@ -369,7 +393,8 @@ public class RootActivity extends AppCompatActivity {
 
         }
 
-
+        inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        closeDrawer();
     }
 
     protected void showToast(String message) {
@@ -378,7 +403,7 @@ public class RootActivity extends AppCompatActivity {
         View view = toast.getView();
 
         GradientDrawable border = new GradientDrawable();
-        border.setStroke(2, mathster_orange); //black border with full opacity
+        //   border.setStroke(2, mathster_orange); //black border with full opacity
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             view.setBackgroundDrawable(border);
         } else {
@@ -512,4 +537,176 @@ public class RootActivity extends AppCompatActivity {
         return null;
     }
 
+      /* Drawer layout*/
+
+    private String[] mPlanetTitles;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+
+    protected void hideMathsterActionBar() {
+        showMathsterActionBar(true, null, false);
+    }
+
+    protected void showMathsterActionBar(String title, boolean showPracticeMenu) {
+        showMathsterActionBar(false, title, showPracticeMenu);
+    }
+
+    private void showMathsterActionBar(boolean hide, String title, boolean showPracticeMenu) {
+        ActionBar mActionBar = getSupportActionBar();
+        if (hide) {
+            mActionBar.hide();
+            return;
+        }
+
+        View mCustomView = inflater.inflate(R.layout.title_bar, null);
+        mActionBar.setDisplayOptions(
+                ActionBar.DISPLAY_SHOW_CUSTOM, ActionBar.DISPLAY_SHOW_CUSTOM |
+                        ActionBar.DISPLAY_SHOW_HOME |
+                        ActionBar.DISPLAY_SHOW_TITLE);
+        TextView mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
+        mTitleTextView.setText(title);
+        mActionBar.setCustomView(mCustomView,
+                new ActionBar.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                )
+        );
+        Toolbar parent = (Toolbar) mCustomView.getParent();
+        parent.setContentInsetsAbsolute(0, 0);
+        parent.setPadding(0, 0, 0, 0);
+
+        View image = mCustomView.findViewById(R.id.title_image);
+
+        if (showPracticeMenu) {
+            image.setVisibility(View.VISIBLE);
+            mCustomView.findViewById(R.id.title_image).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openCloseDrawer();
+                }
+            });
+            mPlanetTitles = new String[]{"Tables", "Squares & Cubes"};
+            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            mDrawerList = (ListView) findViewById(R.id.left_drawer);
+            mDrawerList.setAdapter(new CustomAdaptor(mPlanetTitles));
+            mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        } else {
+            image.setVisibility(View.GONE);
+
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        closeDrawer();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!closeDrawer()) {
+            super.onBackPressed();
+        }
+
+    }
+
+    boolean closeDrawer() {
+        ListView lv = (ListView) findViewById(R.id.left_drawer);
+        if (lv != null && mDrawerLayout != null) {
+            if (mDrawerLayout.isDrawerOpen(lv)) {
+                mDrawerLayout.closeDrawer(lv);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void openCloseDrawer() {
+
+
+        ListView lv = (ListView) findViewById(R.id.left_drawer);
+        if (lv != null && mDrawerLayout != null) {
+            if (mDrawerLayout.isDrawerOpen(lv)) {
+                mDrawerLayout.closeDrawer(lv);
+            } else {
+                mDrawerLayout.openDrawer(lv);
+            }
+        }
+    }
+
+    class DrawerItemClickListener implements ListView.OnItemClickListener {
+
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Toast.makeText(RootActivity.this, "Hello Clicked", Toast.LENGTH_LONG);
+        }
+    }
+
+    class CustomAdaptor extends BaseAdapter {
+
+        String[] labels;
+
+        CustomAdaptor(String[] labels) {
+            String[] arr = new String[labels.length + 1];
+            for (int i = 0; i < arr.length; i++) {
+                if (i == 0) {
+                    arr[i] = "Practice";
+                } else {
+                    arr[i] = labels[i - 1];
+                }
+            }
+            this.labels = arr;
+        }
+
+        public int getCount() {
+            return labels.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return labels[position];
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            View customRow = inflater.inflate(R.layout.custom_list_element, null);
+            TextView name = (TextView) customRow.findViewById(R.id.custom_text_view);
+            name.setText(labels[position]);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            if (position == 0) {
+                name.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30);
+                lp.setMargins(0, 60, 0, 100);
+                name.setTextColor(ContextCompat.getColor(RootActivity.this, R.color.mathster3));
+            } else {
+                name.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+                lp.setMargins(0, 20, 0, 20);
+                name.setTextColor(ContextCompat.getColor(RootActivity.this, android.R.color.black));
+            }
+            name.setLayoutParams(lp);
+            customRow.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    if (position == 0) {
+
+                    } else if (position == 1) {
+                        closeDrawer();
+                        Intent intent = new Intent(RootActivity.this, MultiplicationTablesActivity.class);
+                        MultiplicationTablesActivity.practice_context = MultiplicationTablesActivity.PRACTICE_CONTEXT.MUL;
+                        startActivity(intent);
+                    } else if (position == 2) {
+                        closeDrawer();
+                        Intent intent = new Intent(RootActivity.this, MultiplicationTablesActivity.class);
+                        MultiplicationTablesActivity.practice_context = MultiplicationTablesActivity.PRACTICE_CONTEXT.SQR;
+                        startActivity(intent);
+                    }
+                }
+            });
+            return customRow;
+        }
+
+    }
 }

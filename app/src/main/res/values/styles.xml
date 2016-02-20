@@ -11,6 +11,12 @@
         <item name="android:splitMotionEvents">false</item>
 
     </style>
+
+    <style name="WithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:splitMotionEvents">false</item>
+    </style>
+
     <style name="TextStyleShadow">
         <item name="android:shadowColor">#000000</item>
         <item name="android:shadowDx">1</item>

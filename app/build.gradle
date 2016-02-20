@@ -6,10 +6,10 @@ android {
 
     defaultConfig {
         applicationId "com.appdroidapps.mathster"
-        minSdkVersion 11
+        minSdkVersion 14
         targetSdkVersion 23
-        versionCode 16
-        versionName "2.5.2"
+        versionCode 17
+        versionName "3.0"
     }
     buildTypes {
         release {
@@ -27,24 +27,20 @@ repositories {
 
 dependencies {
 
+    //
+   // compile 'com.google.android.gms:play-services-gcm:8.4.0'
+  //  compile 'com.google.android.gms:play-services-ads:8.4.0'
+    //compile name:'google-play-services'
+
+    //  compile name:'google-api-services-games-v1-rev161-1.21.0'
+    //  compile name:'google-api-services-games-v1-rev3-1.16.0-rc-sources'
+//    compile name:'gcm'
+    compile 'com.android.support:support-v4:23.1.1'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'io.branch.sdk.android:library:1.+'
 
+    compile 'com.clevertap.android:clevertap-android-sdk:2.0.5'
 
-    compile 'com.google.android.gms:play-services:8.4.0'
-    compile 'com.google.android.gms:play-services-games:8.4.0'
-    compile 'com.google.android.gms:play-services-auth:8.4.0'
-    compile 'com.google.android.gms:play-services-plus:8.4.0'
-    compile 'com.google.android.gms:play-services-gcm:8.4.0'
-
-//    compile 'com.google.android.gms:play-services:3.2.65'
-//    compile 'com.google.android.gms:play-services-games:3.2.65'
-//    compile 'com.google.android.gms:play-services-auth:3.2.65'
-//    compile 'com.google.android.gms:play-services-plus:3.2.65'
-//    compile 'com.google.android.gms:play-services-gcm:3.2.65'
-//
-
-
-
-    compile name:'CleverTapAndroidSDK-v2.0.5-20160109'
+ //   compile name:'CleverTapAndroidSDK-v2.0.5-20160109'
+ //   compile name:'google-play-services'
 }

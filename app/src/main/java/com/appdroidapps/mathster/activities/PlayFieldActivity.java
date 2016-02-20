@@ -108,7 +108,7 @@ public abstract class PlayFieldActivity extends RootActivity {
 
     View.OnClickListener onclick = new View.OnClickListener() {
         public void onClick(View v) {
-            int clikedAnswer = Integer.parseInt(((TextView) v).getText() + "");
+            final int clikedAnswer = Integer.parseInt(((TextView) v).getText() + "");
             if (clikedAnswer == _q.getOptions()[_q.getIdx()]) {
                 if (noOfrightAnswer++ % 5 == 0) {
                     loadBanner();
@@ -122,7 +122,25 @@ public abstract class PlayFieldActivity extends RootActivity {
             } else {
                 _q.setAnswered(false);
                 wrongAnswerCount = wrongAnswerCount - 10;
+                Animation shake = AnimationUtils.loadAnimation(PlayFieldActivity.this, R.anim.shake);
+                shake.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation arg0) {
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation arg0) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation arg0) {
+
+                    }
+                });
+                //   v.startAnimation(shake);
                 onWrongAnswer(clikedAnswer);
+                vibrator.vibrate(500);
+
             }
         }
     };

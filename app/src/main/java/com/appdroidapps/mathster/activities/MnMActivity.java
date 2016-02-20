@@ -40,7 +40,6 @@ public class MnMActivity extends PlayFieldActivity {
     protected int progress;
     private AlertDialog builder;
     protected boolean stop = false;
-    private MnMActivity that = this;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +77,6 @@ public class MnMActivity extends PlayFieldActivity {
 
     public void onWrongAnswer(int answer) {
         refresh();
-        vibrator.vibrate(500);
         showScore(GAME_OVER_REASON.WRONG_ANSWER);
     }
 

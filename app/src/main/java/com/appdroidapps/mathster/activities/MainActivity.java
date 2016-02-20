@@ -65,6 +65,8 @@ public class MainActivity extends RootActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+        showMathsterActionBar(RootActivity.context.displayText, false);
         buttonsGroup = (View) findViewById(R.id.buttonGroup);
         //mnm = (TextView) findViewById(R.id.mnm);
         frame1 = (FrameLayout) findViewById(R.id.frame1);
