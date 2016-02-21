@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -44,7 +42,7 @@ public class MultiplicationTablesActivity extends AppCompatActivity {
     DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
     ViewPager mViewPager;
     public Map<Integer, String> tabs = new LinkedHashMap<>();
-    private DynamicTextView hideAll, showAll;
+    private DynamicTextView showAll;
     public static PRACTICE_CONTEXT practice_context;
     private static MultiplicationTablesActivity that;
 
@@ -52,7 +50,6 @@ public class MultiplicationTablesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.multiplication_layout);
         that = this;
-        hideAll = (DynamicTextView) findViewById(R.id.hideAll);
         showAll = (DynamicTextView) findViewById(R.id.showAll);
         setHideAll();
         int j = 0;
@@ -202,9 +199,9 @@ public class MultiplicationTablesActivity extends AppCompatActivity {
                 int n = i + 2;
                 for (int j = 2; j <= 30; j++) {
                     LinearLayout v = (LinearLayout) inflater.inflate(R.layout.row, null);
-                    TextView question = (TextView) v.getChildAt(0);
+                    TextView question = (TextView) v.findViewById(R.id.question_practice);
                     question.setText(n + " x " + j);
-                    TextView answer = (TextView) ((FrameLayout) v.getChildAt(1)).getChildAt(0);
+                    TextView answer = (TextView) v.findViewById(R.id.answer_practice);
                     answer.setText((n * j) + "");
                     answer.setOnClickListener(showAnswer);
                     allViews.add(answer);
@@ -215,9 +212,9 @@ public class MultiplicationTablesActivity extends AppCompatActivity {
                     for (int j = 2; j <= 30; j++) {
 
                         LinearLayout v = (LinearLayout) inflater.inflate(R.layout.row, null);
-                        TextView question = (TextView) v.getChildAt(0);
+                        TextView question = (TextView) v.findViewById(R.id.question_practice);
                         question.setText(Html.fromHtml(j + "<sup><small> 2 </small></sup>"));
-                        TextView answer = (TextView) ((FrameLayout) v.getChildAt(1)).getChildAt(0);
+                        TextView answer = (TextView) v.findViewById(R.id.answer_practice);
                         answer.setText((j * j) + "");
                         answer.setOnClickListener(showAnswer);
                         allViews.add(answer);
@@ -228,9 +225,9 @@ public class MultiplicationTablesActivity extends AppCompatActivity {
 
                     for (int j = 2; j <= 30; j++) {
                         LinearLayout v = (LinearLayout) inflater.inflate(R.layout.row, null);
-                        TextView question = (TextView) v.getChildAt(0);
+                        TextView question = (TextView) v.findViewById(R.id.question_practice);
                         question.setText(Html.fromHtml(j + "<sup><small> 3 </small></sup>"));
-                        TextView answer = (TextView) ((FrameLayout) v.getChildAt(1)).getChildAt(0);
+                        TextView answer = (TextView) v.findViewById(R.id.answer_practice);
                         answer.setText((j * j * j) + "");
                         answer.setOnClickListener(showAnswer);
                         allViews.add(answer);
@@ -249,19 +246,10 @@ public class MultiplicationTablesActivity extends AppCompatActivity {
     }
 
     private static int p = 0;
+    private static boolean isShowing = false;
 
     public void setHideAll() {
-        this.hideAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                List<TextView> allViews = positionTTextViewsMap.get(p);
-                if (allViews == null) return;
-                for (TextView vi : allViews) {
 
-                    vi.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                }
-            }
-        });
         this.showAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -269,8 +257,13 @@ public class MultiplicationTablesActivity extends AppCompatActivity {
                 if (allViews == null) return;
                 for (TextView vi : allViews) {
 
-                    vi.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    if (!isShowing) {
+                        vi.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    } else {
+                        vi.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    }
                 }
+                isShowing = !isShowing;
             }
         });
     }

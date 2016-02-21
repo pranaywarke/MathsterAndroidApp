@@ -3,14 +3,8 @@ package com.appdroidapps.mathster.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.appdroidapps.mathster.R;
-
-import org.json.JSONObject;
-
-import io.branch.referral.Branch;
-import io.branch.referral.BranchError;
 
 
 /**
@@ -45,7 +39,7 @@ public class SplashActivity extends RootActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        try {
+       /* try {
             Branch branch = Branch.getInstance();
             branch.initSession(new Branch.BranchReferralInitListener() {
                 @Override
@@ -58,7 +52,7 @@ public class SplashActivity extends RootActivity {
             }, this.getIntent().getData(), this);
         } catch (Exception e) {
 
-        }
+        }*/
     }
 
     @Override

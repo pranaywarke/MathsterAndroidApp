@@ -27,36 +27,40 @@
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="1dp"
         android:background="@color/mathster3" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <com.appdroidapps.mathster.utils.DynamicTextView
             android:id="@+id/hideAll"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Hide All"
-            android:textColor="@color/mathster3" />
+            android:text="Click on the dots or "
+            android:textColor="@android:color/white"
+            android:textStyle="italic" />
 
         <com.appdroidapps.mathster.utils.DynamicTextView
             android:id="@+id/showAll"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:layout_alignParentTop="true"
             android:layout_gravity="center"
+            android:layout_toEndOf="@+id/hideAll"
+            android:layout_toRightOf="@+id/hideAll"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Show All"
+            android:text="Toggle answers here"
             android:textColor="@color/mathster3" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

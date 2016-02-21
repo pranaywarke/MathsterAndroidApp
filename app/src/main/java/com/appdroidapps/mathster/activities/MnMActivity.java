@@ -186,8 +186,12 @@ public class MnMActivity extends PlayFieldActivity {
                         File imageFile = new File(mPath);
                         Falcon.takeScreenshot(MnMActivity.this, imageFile);
                         Intent share = new Intent(Intent.ACTION_SEND);
-                        share.setType("image/jpeg");
+
+                        share.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=com.appdroidapps.mathster");
+                        //  share.setType("text/plain");
+
                         share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(imageFile));
+                        share.setType("*/*");
                         startActivity(Intent.createChooser(share, "Share Screenshot"));
                         Map<String, Object> map = new HashMap<>();
                         map.put("Screen", "Play");

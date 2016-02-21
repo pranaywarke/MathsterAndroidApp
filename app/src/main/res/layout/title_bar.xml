@@ -17,7 +17,7 @@
             android:id="@+id/title_image"
             android:layout_width="20dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="20dp"
             android:paddingLeft="2dp"
             android:text="&#8942;"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"

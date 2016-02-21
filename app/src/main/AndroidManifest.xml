@@ -125,13 +125,13 @@
         </receiver>
 
         <!--Main Account crendentils TODO change-->
-        <!--<meta-data-->
-        <!--android:name="CLEVERTAP_ACCOUNT_ID"-->
-        <!--android:value="867-4WK-844Z" />-->
+        <!--<meta-data
+            android:name="CLEVERTAP_ACCOUNT_ID"
+            android:value="867-4WK-844Z" />
 
-        <!--<meta-data-->
-        <!--android:name="CLEVERTAP_TOKEN"-->
-        <!--android:value="304-a6b" />-->
+        <meta-data
+            android:name="CLEVERTAP_TOKEN"
+            android:value="304-a6b" />-->
 
 
         <!--Test Account crendentils-->
@@ -142,10 +142,9 @@
         <meta-data
             android:name="CLEVERTAP_TOKEN"
             android:value="TEST-304-a6c" />
-
-        <meta-data
+     <!--   <meta-data
             android:name="io.branch.sdk.BranchKey"
-            android:value="key_live_cioXpNEdsnJsJNUZB6lQCjoaAvaDG4Y8" />
+            android:value="key_live_cioXpNEdsnJsJNUZB6lQCjoaAvaDG4Y8" />-->
 
 
         <meta-data

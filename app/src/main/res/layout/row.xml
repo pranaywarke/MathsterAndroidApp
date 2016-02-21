@@ -3,41 +3,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:orientation="horizontal"
-    android:weightSum="2">
+    android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="#000000"
-        android:gravity="center"
-        android:paddingTop="50dp"
-        android:tag="question"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/mathster3"
-        android:textSize="40sp"></TextView>
-
-    <FrameLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-
-        android:layout_weight="1"
-        android:background="#333339">
 
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="wrap_content"
+            android:id="@+id/question_practice"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#000000"
+            android:gravity="center"
             android:paddingTop="50dp"
-            android:password="true"
-            android:tag="answer"
-            android:text="Large "
+            android:tag="question"
+            android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/mathster3"
-            android:textSize="40sp"
-            android:layout_gravity="center"></TextView>
-    </FrameLayout>
+            android:textSize="40sp"></TextView>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:layout_weight="1">
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/answer_practice"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:paddingTop="50dp"
+                android:password="true"
+                android:tag="answer"
+                android:text="Large "
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/mathster3"
+                android:textSize="40sp"></TextView>
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.2dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/mathster3" />
 
 </LinearLayout>

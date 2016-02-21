@@ -40,7 +40,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by pranay on 14/11/15.
@@ -694,11 +696,17 @@ public class RootActivity extends AppCompatActivity {
 
                     } else if (position == 1) {
                         closeDrawer();
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("mode", "multiplication");
+                        cleverTapAPI.event.push("Practice", map);
                         Intent intent = new Intent(RootActivity.this, MultiplicationTablesActivity.class);
                         MultiplicationTablesActivity.practice_context = MultiplicationTablesActivity.PRACTICE_CONTEXT.MUL;
                         startActivity(intent);
                     } else if (position == 2) {
                         closeDrawer();
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("mode", "squaresAndcubes");
+                        cleverTapAPI.event.push("Practice", map);
                         Intent intent = new Intent(RootActivity.this, MultiplicationTablesActivity.class);
                         MultiplicationTablesActivity.practice_context = MultiplicationTablesActivity.PRACTICE_CONTEXT.SQR;
                         startActivity(intent);
