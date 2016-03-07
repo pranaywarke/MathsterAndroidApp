@@ -138,7 +138,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/landing_page_button"
                     android:text="Top 5 Scores"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                     android:textColor="@color/mathster3"
                     android:textStyle="bold" />
 
@@ -151,7 +151,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/landing_page_button"
                     android:text="Daily Trend"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                     android:textColor="@color/mathster3"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -174,7 +174,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/landing_page_button"
                     android:text="Leaderboard"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                     android:textColor="@color/mathster3"
                     android:textStyle="bold" />
 

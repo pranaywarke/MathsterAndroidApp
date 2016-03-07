@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.appdroidapps.mathster.MyApplication;
 import com.appdroidapps.mathster.R;
 import com.appdroidapps.mathster.utils.DynamicTextView;
 
@@ -200,10 +201,13 @@ public class MultiplicationTablesActivity extends AppCompatActivity {
                 for (int j = 2; j <= 30; j++) {
                     LinearLayout v = (LinearLayout) inflater.inflate(R.layout.row, null);
                     TextView question = (TextView) v.findViewById(R.id.question_practice);
+
                     question.setText(n + " x " + j);
                     TextView answer = (TextView) v.findViewById(R.id.answer_practice);
                     answer.setText((n * j) + "");
                     answer.setOnClickListener(showAnswer);
+                    question.setTypeface(MyApplication.mathsterFont);
+                    answer.setTypeface(MyApplication.mathsterFont);
                     allViews.add(answer);
                     contain.addView(v);
                 }
@@ -218,6 +222,8 @@ public class MultiplicationTablesActivity extends AppCompatActivity {
                         answer.setText((j * j) + "");
                         answer.setOnClickListener(showAnswer);
                         allViews.add(answer);
+                        question.setTypeface(MyApplication.mathsterFont);
+                        answer.setTypeface(MyApplication.mathsterFont);
                         contain.addView(v);
 
                     }
@@ -231,6 +237,8 @@ public class MultiplicationTablesActivity extends AppCompatActivity {
                         answer.setText((j * j * j) + "");
                         answer.setOnClickListener(showAnswer);
                         allViews.add(answer);
+                        question.setTypeface(MyApplication.mathsterFont);
+                        answer.setTypeface(MyApplication.mathsterFont);
                         contain.addView(v);
 
 

@@ -6,11 +6,10 @@ package com.appdroidapps.mathster.utils;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
+
+import com.appdroidapps.mathster.MyApplication;
 
 public class DynamicTextView extends TextView {
 
@@ -26,7 +25,9 @@ public class DynamicTextView extends TextView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
- //       this.post(resize);
+
+        //   this.setTypeface(MyApplication.mathsterFont);
+        //       this.post(resize);
     }
 
     private Runnable resize = new Runnable() {
@@ -40,13 +41,16 @@ public class DynamicTextView extends TextView {
 
     public DynamicTextView(Context context) {
         super(context);
+        setTypeface(MyApplication.mathsterFont);
     }
 
     public DynamicTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
- }
+        setTypeface(MyApplication.mathsterFont);
+    }
 
     public DynamicTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-  }
+        setTypeface(MyApplication.mathsterFont);
+    }
 }

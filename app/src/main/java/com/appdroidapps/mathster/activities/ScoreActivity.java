@@ -136,8 +136,7 @@ public class ScoreActivity extends BaseGameActivity {
             long l_updated_score = RootActivity.getLeaderBoardLastUpdatedTopScore();
             if (l_updated_score < score && score > 0) {
 
-                Leaderboards.submitScoreImmediate(getApiClient(), getLeaderBoardString(),
-                        score);
+                Leaderboards.submitScoreImmediate(getApiClient(), getLeaderBoardString(), score);
                 RootActivity.setLeaderBoardLastUpdatedTopScore(score);
             }
             final int BOARD_REQUEST_CODE = 1;

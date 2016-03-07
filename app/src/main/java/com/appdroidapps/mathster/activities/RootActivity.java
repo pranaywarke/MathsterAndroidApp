@@ -27,6 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.appdroidapps.mathster.MyApplication;
 import com.appdroidapps.mathster.R;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.exceptions.CleverTapMetaDataNotFoundException;
@@ -51,9 +52,13 @@ public class RootActivity extends AppCompatActivity {
 
 
     protected static final boolean SHOW_ADS = false;
+    // private static final String SUFFIX = "9"; //
     private static final String SUFFIX = "7"; // this key is live in prod don't mess with it.
     //private static final String SUFFIX = "1001";
     private static final String MNM_KEY = "score" + SUFFIX;
+    private static final String TOTAL_ALL_TIME_SCORE = "total_all_" + SUFFIX;
+    private static final String TOTAL_DAILY_SCORE = "total" + SUFFIX;
+    private static final String TOTAL_DAILY_SCORE_LIMIT = "total_limit" + SUFFIX;
     private static final String LAST_UPDATED_LEADERBOARD_SCORE = "last_up_score" + SUFFIX;
     private static final String LEADERBOARD_SYNC = "l_sync_n" + SUFFIX;
     private static final String HISTOGRAM_FREQ_PREFIX_STR = "Histogram_" + SUFFIX;
@@ -265,7 +270,44 @@ public class RootActivity extends AppCompatActivity {
         }
         fixDailyValues(score);
         setLastBestScore(score);
+        updateTotals(score);
         editorN.commit();
+    }
+
+    public static void updateTotals(long score) {
+        Long total = sharedPreferencesN.getLong(TOTAL_ALL_TIME_SCORE, 0);
+
+        int today = Integer.parseInt(sdf.format(new Date()));
+        Long total_today = sharedPreferencesN.getLong(TOTAL_DAILY_SCORE, 0);
+        int valid_for = sharedPreferencesN.getInt(TOTAL_DAILY_SCORE + "_day", 0);
+
+        if (today != valid_for) {
+            total_today = 0L;
+            editorN.putInt(TOTAL_DAILY_SCORE + "_day", today);
+        }
+        total_today += score;
+
+        total += score;
+        editorN.putLong(TOTAL_ALL_TIME_SCORE, total);
+        editorN.putLong(TOTAL_DAILY_SCORE, total_today);
+        editorN.commit();
+    }
+
+    public static void updateDailyLimit(long limit) {
+        editorN.putLong(TOTAL_DAILY_SCORE_LIMIT, limit);
+        editorN.commit();
+    }
+
+    public static Long getDailyLimit() {
+        return sharedPreferencesN.getLong(TOTAL_DAILY_SCORE_LIMIT, 1000l);
+    }
+
+    public static Long getDailyTotal() {
+        return sharedPreferencesN.getLong(TOTAL_DAILY_SCORE, 0);
+    }
+
+    public static Long getTotal() {
+        return sharedPreferencesN.getLong(TOTAL_ALL_TIME_SCORE, 0);
     }
 
     public static JSONArray getDailyHistogramValues() {
@@ -449,7 +491,8 @@ public class RootActivity extends AppCompatActivity {
         CHALLENGE_DOS("", "Challenge Duo", "Arithmetic operations of two numbers"),
         CHALLENGE_TRES("m", "Challenge Trio", "Arithmetic operations of three numbers"),
         CHALLENGE_ROOTS("r", "Challenge Roots", "Square and cubes of numbers"),
-        CHALLENGE_FRACTIONS("f", "Challenge Fractions", "Percentages and fractions");
+        CHALLENGE_FRACTIONS("f", "Challenge Fractions", "Percentages and fractions"),
+        ALL_TIME("a", "All time", "All time");
 
         String key = null;
         String displayText = null;
@@ -566,6 +609,7 @@ public class RootActivity extends AppCompatActivity {
                         ActionBar.DISPLAY_SHOW_HOME |
                         ActionBar.DISPLAY_SHOW_TITLE);
         TextView mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
+        mTitleTextView.setTypeface(MyApplication.mathsterFont);
         mTitleTextView.setText(title);
         mActionBar.setCustomView(mCustomView,
                 new ActionBar.LayoutParams(
@@ -677,6 +721,7 @@ public class RootActivity extends AppCompatActivity {
         public View getView(final int position, View convertView, ViewGroup parent) {
             View customRow = inflater.inflate(R.layout.custom_list_element, null);
             TextView name = (TextView) customRow.findViewById(R.id.custom_text_view);
+            name.setTypeface(MyApplication.mathsterFont);
             name.setText(labels[position]);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.MATCH_PARENT);

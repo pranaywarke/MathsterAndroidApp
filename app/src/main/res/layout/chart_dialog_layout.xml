@@ -5,32 +5,32 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/tileLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/my_awesome_darker_red"
-        android:orientation="vertical"
-        android:id="@+id/tileLayout">
+        android:orientation="vertical">
 
-        <TextView
+        <com.appdroidapps.mathster.utils.DynamicTextView
+            android:id="@+id/dialogContext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/dialogContext"
             android:layout_gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/mathster3" />
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/mathster3"
+            android:textStyle="bold" />
 
-        <TextView
+        <com.appdroidapps.mathster.utils.DynamicTextView
             android:id="@+id/titleChart"
             style="@style/TextStyleShadow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:textColor="#ffffff"
-            android:textStyle="bold"
             android:text="Title"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
     </LinearLayout>
 
 
@@ -43,9 +43,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp">
+            android:layout_marginRight="2dp"
+            android:orientation="vertical">
 
             <com.appdroidapps.mathster.BarChart
                 android:id="@+id/contentChart"
@@ -56,30 +56,30 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/helpLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/helpLayout">
+        android:orientation="vertical">
 
-        <TextView
+        <com.appdroidapps.mathster.utils.DynamicTextView
             android:id="@+id/helpText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="3"
             android:gravity="center"
             android:text="helpText"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="italic"
-            android:layout_marginTop="5dp" />
+            android:textStyle="italic" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/closeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/closeLayout">
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/close"

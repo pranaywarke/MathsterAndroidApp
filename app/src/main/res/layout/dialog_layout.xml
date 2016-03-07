@@ -10,7 +10,7 @@
         android:background="@color/my_awesome_darker_red"
         android:orientation="vertical">
 
-        <TextView
+        <com.appdroidapps.mathster.utils.DynamicTextView
             android:id="@+id/titletextView"
             style="@style/TextStyleShadow"
             android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
         android:minHeight="100dp"
         android:orientation="vertical">
 
-        <TextView
+        <com.appdroidapps.mathster.utils.DynamicTextView
             android:id="@+id/rightAnswerTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             android:text="New Text"
             android:textSize="18sp" />
 
-        <TextView
+        <com.appdroidapps.mathster.utils.DynamicTextView
             android:id="@+id/scoreTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:textColor="@color/mathster3"
             android:textSize="30sp" />
 
-        <TextView
+        <com.appdroidapps.mathster.utils.DynamicTextView
             android:id="@+id/messageTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,6 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:fontFamily="bo"
                 android:background="@drawable/camera"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"

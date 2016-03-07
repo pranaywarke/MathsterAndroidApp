@@ -7,11 +7,9 @@ package com.appdroidapps.mathster.utils;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+
+import com.appdroidapps.mathster.MyApplication;
 
 public class DynamicButton extends Button {
 
@@ -21,13 +19,14 @@ public class DynamicButton extends Button {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-   //     this.post(resize);
+        //     this.post(resize);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-    //    this.post(resize);
+      //  canvas.drawPaint(MyApplication.createCheckerBoard(5));
+        this.setTypeface(MyApplication.mathsterFont);
     }
 
     private Runnable resize = new Runnable() {
@@ -45,9 +44,9 @@ public class DynamicButton extends Button {
 
     public DynamicButton(Context context, AttributeSet attrs) {
         super(context, attrs);
- }
+    }
 
     public DynamicButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-  }
+    }
 }
